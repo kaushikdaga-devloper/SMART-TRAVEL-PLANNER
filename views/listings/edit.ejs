@@ -1,0 +1,56 @@
+<% layout('/layouts/boilerplate.ejs') %>
+<div class="row">
+    <div class="col-8 offset-2">
+    <h3>Edit Listing</h3>
+    <form method="post" action="/listings/<%=list._id%>?_method=put" novalidate class="needs-validation" enctype="multipart/form-data">
+        <div class="mb-3"> <label for="title">Title</label>
+            <input name="title" value="<%=list.title%>" type="text" class="form-control" required>
+            <div class="invalid-feedback">Please enter the title</div>
+        </div>
+       <div class="mb-3">
+        <label for="description" class="form-label">Description</label>
+        <textarea name="description"  rows="10" cols="50" class="form-control" required><%=list.description%></textarea>
+        <div class="invalid-feedback">Please enter a vaild description</div>
+        </div> 
+        <div class="mb-3">
+            <p>original listing image</p>
+            <img src="<%=list.image.url %>" height="40%" width="40%">
+        </div>
+        <div class="mb-3">
+            <label for="image" class="form-label">New Image</label>
+        <input name="listing[image]" value="<%=list.image.url %>" type="file" class="form-control">
+       
+        </div>
+        <div class="row">
+        <div class="mb-3 col-4">
+            <label for="price" class="form-label" >Price</label>
+        <input name="price" value="<%=list.price%>" type="number" class="form-control" required>
+        <div class="invalid-feedback">Please enter the price</div>
+        </div>
+        <div class="mb-3 col-md-8">
+            <label for="location" class="form-label">Location</label>
+        <input name="location" value="<%=list.location %>" type="text" class="form-control" required>
+        <div class="invalid-feedback">Please enter a vaild location</div>
+        </div>
+        </div>
+        <div class="mb-3">
+            <label for="country" class="form-label">Country</label>
+        <input name="country" value="<%=list.country%>" type="text" class="form-control"required>
+        <div class="invalid-feedback">Please enter a vaild country</div>
+        </div>
+        <button class="btn btn-edit">Edit</button>
+    </form>
+    </div>
+</div>
+<!-- <body>
+    <h3>Create a new Listing</h3>
+    <form method="post" action="/listings/<%=list._id%>?_method=put">
+        <input name="title" value=<%=list.title%> type="text">
+        <textarea name="description" rows="10" cols="50"></textarea> 
+        <input name="image[url]"  type="text">
+        <input name="price"  type="number">
+        <input name="location"  type="text">
+        <input name="country"  type="text">
+        <button>Edit</button>
+    </form>
+</body> -->
