@@ -1,13 +1,74 @@
-<footer>
-    <div class="f-info">
-        <div class="f-info-socials"></div>
-        <i class="fa-brands fa-facebook"></i>
-        <i class="fa-brands fa-instagram"></i>
-        <i class="fa-brands fa-linkedin"></i>
-        <div>&copy;Wanderlust private Limited</div>
-        <div class="f-info-links">
-            <a>privacy</a>
-            <a>Terms</a>
+<style>
+    footer {
+      background-color: #f8f9fa;
+      padding: 1.5rem 0;
+      border-top: 1px solid #dee2e6;
+    }
+  
+    .f-info {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      text-align: center;
+    }
+  
+    .f-info-socials i {
+      font-size: 1.5rem;
+      margin: 0 0.5rem;
+      color: #343a40;
+      transition: color 0.3s ease;
+    }
+  
+    .f-info-socials i:hover {
+      color: #fe424d;
+    }
+  
+    .f-info-links a {
+      margin: 0 0.5rem;
+      color: #343a40;
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.3s ease;
+    }
+  
+    .f-info-links a:hover {
+      color: #fe424d;
+    }
+  
+    @media (min-width: 768px) {
+      .f-info {
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 0 2rem;
+        text-align: left;
+      }
+  
+      .f-info-socials, .f-info-links, .f-info div {
+        margin: 0;
+      }
+    }
+  </style>
+  
+  <footer>
+    <div class="container">
+      <div class="f-info">
+        <!-- Socials -->
+        <div class="f-info-socials">
+          <a href="https://facebook.com" target="_blank" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
+          <a href="https://instagram.com" target="_blank" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="https://linkedin.com" target="_blank" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
         </div>
+  
+        <!-- Copyright -->
+        <div>&copy; Wanderlust Private Limited</div>
+  
+        <!-- Footer links -->
+        <div class="f-info-links">
+          <a href="#">Privacy</a>
+          <a href="#">Terms</a>
+        </div>
+      </div>
     </div>
-</footer>
+  </footer>
+  

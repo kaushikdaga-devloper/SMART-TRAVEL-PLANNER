@@ -38,6 +38,13 @@
         <input name="country" value="<%=list.country%>" type="text" class="form-control"required>
         <div class="invalid-feedback">Please enter a vaild country</div>
         </div>
+        <div class="col-8 offset-2">
+            <div id="map1"></div>
+        
+          <!-- Hidden fields or display of selected coordinates -->
+          <input type="hidden" name="listing[latitude]" id="latitude" required>
+        <input type="hidden" name="listing[longitude]" id="longitude" required>
+        </div>
         <button class="btn btn-edit">Edit</button>
     </form>
     </div>

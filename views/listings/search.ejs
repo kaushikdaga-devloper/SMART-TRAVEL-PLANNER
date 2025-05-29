@@ -1,0 +1,145 @@
+<% layout('/layouts/boilerplate.ejs') %>
+
+<style>
+    .filter {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap; /* Responsive: wrap filters */
+    }
+
+    .filters {
+        opacity: 0.8;
+    }
+    .filters:hover {
+        opacity: 1;
+    }
+    .filters p {
+        font-size: 0.8rem;
+    }
+    .taxInfo {
+        display: none;
+    }
+    .navEdit {
+        margin-top: 1.5rem;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+    .taxToggles {
+        border: 1px solid black;
+        border-radius: 1rem;
+        padding: 1.5rem;
+        margin-top: 1rem;
+    }
+
+    @media (max-width: 768px) {
+        .filter {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .taxToggles {
+            width: 100%;
+        }
+    }
+    a {
+        text-decoration: none;
+        /* color: white; */
+    }
+</style>
+
+<div class="filter">
+    <ul class="nav navEdit" id="filterNav">
+        <li class="nav-item">
+            <a class="nav-link filter-link" data-filter="Trending" href="/listings/search?query=world">
+                <div class="filters"><i class="fa-solid fa-fire"></i><p>Trending</p></div>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link filter-link" data-filter="Rooms" href="/listings/search?query=Rooms">
+                <div class="filters"><i class="fa-solid fa-bed"></i><p>Rooms</p></div>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link filter-link" data-filter="Mountains" href="/listings/search?query=mountains">
+                <div class="filters"><i class="fa-solid fa-mountain-city"></i><p>Mountains</p></div>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link filter-link" data-filter="Iconic Cities" href="/listings/search?query=Iconic+Cities">
+                <div class="filters"><i class="fa-solid fa-city"></i><p>Iconic Cities</p></div>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link filter-link" data-filter="Castles" href="/listings/search?query=Castles">
+                <div class="filters"><i class="fa-brands fa-fort-awesome"></i><p>Castles</p></div>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link filter-link" data-filter="Amazing Pools" href="/listings/search?query=Amazing+Pools">
+                <div class="filters"><i class="fa-solid fa-person-swimming"></i><p>Amazing Pools</p></div>
+            </a>
+        </li>
+    </ul>
+    <div class="form-check-reverse form-switch taxToggles" id="taxToggle">
+        <input class="form-check-input" type="checkbox" role="switch" id="switchCheckDefault">
+        <label class="form-check-label" for="switchCheckDefault">Display total after taxes</label>
+    </div>
+</div>
+
+<!-- Show search query -->
+<h2 class="mt-4 mb-3"><%= query %></h2>
+
+<div class="row row-col-lg-3 row-col-md-3 row-col-sm-1 mt-3">
+    <% for (let listing of searchResults) { %>
+        <div class="listing-card mb-4" style="width: 20rem;">
+            <a href="/listings/searchResult?title=<%= encodeURIComponent(listing.title) %>&location=<%= encodeURIComponent(listing.location) %>&country=<%= encodeURIComponent(listing.country) %>&price=<%= listing.price %>&image=<%= encodeURIComponent(listing.image.url) %>&latitude=<%= listing.latitude %>&longitude=<%= listing.longitude %>&description=<%= encodeURIComponent(listing.description) %>">
+                <img src="<%= listing.image.url %>" class="card-img-top" alt="image" style="height: 20rem;">
+                <div class="card-body">
+                    <p class="card-text">
+                        <b><%= listing.title %></b><br>
+                        <b>Price:</b> ₹<%= Number(listing.price).toLocaleString("en-IN") %>/night
+                        <i class="taxInfo">&nbsp;+18% GST</i>
+                        <br><%= listing.location %>, <%= listing.country %>
+                    </p>
+                </div>
+            </a>
+        </div>
+    <% } %>
+</div>
+
+<script>
+    // Tax switch toggle
+    document.getElementById("switchCheckDefault").addEventListener("click", () => {
+        let taxInfo = document.getElementsByClassName("taxInfo");
+        for (let info of taxInfo) {
+            info.style.display = (info.style.display === "inline") ? "none" : "inline";
+        }
+    });
+
+    // Filter click handler to hide all other filters
+    const filterLinks = document.querySelectorAll(".filter-link");
+    filterLinks.forEach(link => {
+        link.addEventListener("click", (e) => {
+            sessionStorage.setItem("filterClicked", "true");
+        });
+    });
+
+    // On page load: check if a filter was clicked or a query was searched
+    window.addEventListener("DOMContentLoaded", () => {
+        const query = "<%= query %>";
+        const wasFilterClicked = sessionStorage.getItem("filterClicked");
+
+        if (query || wasFilterClicked) {
+            const filterNav = document.getElementById("filterNav");
+            if (filterNav) {
+                filterNav.style.display = "none";
+            }
+        }
+
+        // Clean up session flag
+        sessionStorage.removeItem("filterClicked");
+    });
+</script>
+
+  

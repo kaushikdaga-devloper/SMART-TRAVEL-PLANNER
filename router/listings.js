@@ -17,6 +17,13 @@ router.route('/new')
 .get(isLoggedIn, listingController.renderNewform)
 .post(upload.single('listing[image]'),wrapAsync(listingController.createNewform));
 
+// Add this above router.route('/:id') so it doesn't get confused with an ID
+router.route('/search').get( listingController.searchListings);
+router.route('/searchResult')
+  .get(listingController.renderSearchResult);
+
+
+
 
 router.route('/:id')
 .get(wrapAsync(listingController.showRoute)) 

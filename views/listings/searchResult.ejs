@@ -1,0 +1,41 @@
+<% layout('/layouts/boilerplate.ejs') %>
+<div class="row mt-3">
+  <div class="col-8 offset-3">
+    <h3><b><%= list.title %></b></h3>
+  </div>
+  <div class="col-6 offset-3">
+    <div class="card card-edit1 listing-card">
+      <img src="<%= list.image.url %>" class="card-img-top" alt="loading...">
+      <div class="card-body">
+        <p class="card-text"><i> owned by demo user </i></p>
+        <p class="card-text"><%= list.description %></p>
+        <p class="card-text">&#8377;<%= Number(list.price).toLocaleString("en-IN") %>/night</p>
+        <p class="card-text"><%= list.location %></p>
+        <p class="card-text"><%= list.country %></p>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="col-8 offset-2">
+    <h2>Where You'll Be</h2>
+    <div id="map2"></div>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const lat = `<%= list.latitude ? list.latitude : 28.6139 %>`;
+        const lng = `<%= list.longitude ? list.longitude : 77.2090 %>`;
+
+        const map = L.map('map2').setView([lat, lng], 13);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
+
+        L.marker([lat, lng])
+          .addTo(map)
+          .bindPopup(`<b><%= list.title %></b><br><%= list.location %>, <%= list.country %>`)
+          .openPopup();
+      });
+    </script>
+  </div>
+</div>

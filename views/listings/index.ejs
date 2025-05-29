@@ -1,112 +1,153 @@
 <% layout('/layouts/boilerplate.ejs') %>
-            <style>
-                .filter {
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                }
-                
-                .filters {
-                    opacity: 0.8;
-                }
-                .filters:hover {
-                    opacity: 1;
-                }
-                .filters p {
-                    font-size: 0.8rem;
-                }
-                .taxInfo {
-                    display: none;
-                }
-                .navEdit {
-                    margin-top: 1.5rem;
-                }
-                .taxToggles {
-                    border: 1px solid black;
-                    border-radius: 1rem;
-                    margin-right: 2.5rem;
-                    padding: 1.5rem;
-                }
-            </style>
-   <div class="filter">       
+<style>
+    .filter {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .navEdit {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        gap: 1rem;
+        margin-top: 1.5rem;
+        scrollbar-width: thin;
+        padding-bottom: 0.5rem;
+    }
+
+    .navEdit::-webkit-scrollbar {
+        height: 6px;
+    }
+
+    .navEdit::-webkit-scrollbar-thumb {
+        background-color: #ccc;
+        border-radius: 10px;
+    }
+
+    .filters {
+        opacity: 0.8;
+        text-align: center;
+    }
+
+    .filters:hover {
+        opacity: 1;
+    }
+
+    .filters p {
+        font-size: 0.8rem;
+        margin-bottom: 0;
+    }
+
+    .taxToggles {
+        border: 1px solid black;
+        border-radius: 1rem;
+        padding: 1.5rem;
+        flex-shrink: 0;
+    }
+
+    .taxInfo {
+        display: none;
+    }
+
+    @media (max-width: 768px) {
+        .filter {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .taxToggles {
+            margin-left: 0;
+            width: 100%;
+        }
+
+        .navEdit {
+            width: 100%;
+        }
+    }
+</style>
+
+<div class="filter">
     <ul class="nav navEdit">
         <li class="nav-item">
-            <a class="nav-link" href="/listings"> <div class="filters">
-                <div><i class="fa-solid fa-fire"></i></div>
-               <p>Trending</p>
-            </div>
-        </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/listings">
-            <div class="filters">
-                <div><i class="fa-solid fa-bed"></i></div>
-               <p>Rooms</p>
-            </div>
+            <a class="nav-link" href="/listings/search?query=world">
+                <div class="filters">
+                    <div><i class="fa-solid fa-fire"></i></div>
+                    <p>Trending</p>
+                </div>
             </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/listings"> <div class="filters">
-            <div><i class="fa-solid fa-mountain-city"></i></div>
-           <p>Mountains</p>
-        </div></a>
+            <a class="nav-link" href="/listings/search?query=Rooms">
+                <div class="filters">
+                    <div><i class="fa-solid fa-bed"></i></div>
+                    <p>Rooms</p>
+                </div>
+            </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/listings"><div class="filters">
-            <div><i class="fa-solid fa-city"></i></div>
-           <p>Iconic Cities</p>
-        </div></a>
+            <a class="nav-link" href="/listings/search?query=mountains">
+                <div class="filters">
+                    <div><i class="fa-solid fa-mountain-city"></i></div>
+                    <p>Mountains</p>
+                </div>
+            </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="/listings"> <div class="filters">
-                <div><i class="fa-brands fa-fort-awesome"></i></div>
-               <p>Castles</p>
-            </div></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link " href="/listings"> <div class="filters">
-                <div><i class="fa-solid fa-person-swimming"></i></div>
-               <p>Amazing Pools</p>
-            </div></a>
-          </li>
-          
-      </ul>
-     
-        <div class="form-check-reverse form-switch taxToggles">
-            <input class="form-check-input" type="checkbox" role="switch" id="switchCheckDefault">
-            <label class="form-check-label" for="switchCheckDefault">Display total after taxes</label>
-          </div>
-    </div>  
-    <!-- <form method="get" action="/listings/new">
-        <button>Create new listing</button>
-    </form> -->
-        <div class="row row-col-lg-3 row-col-md-3 row-col-sm-1 mt-3">
+            <a class="nav-link" href="/listings/search?query=Iconic+Cities">
+                <div class="filters">
+                    <div><i class="fa-solid fa-city"></i></div>
+                    <p>Iconic Cities</p>
+                </div>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/listings/search?query=Castles">
+                <div class="filters">
+                    <div><i class="fa-brands fa-fort-awesome"></i></div>
+                    <p>Castles</p>
+                </div>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/listings/search?query=Amazing+Pools">
+                <div class="filters">
+                    <div><i class="fa-solid fa-person-swimming"></i></div>
+                    <p>Amazing Pools</p>
+                </div>
+            </a>
+        </li>
+    </ul>
+
+    <div class="form-check-reverse form-switch taxToggles">
+        <input class="form-check-input" type="checkbox" role="switch" id="switchCheckDefault">
+        <label class="form-check-label" for="switchCheckDefault">Display total after taxes</label>
+    </div>
+</div>
+
+<div class="row row-col-lg-3 row-col-md-3 row-col-sm-1 mt-3">
     <% for(listing of allListings) { %>
-        
-        <div class="listing-card" style="width: 20rem ;">
+        <div class="listing-card" style="width: 20rem;">
             <a href="/listings/<%=listing._id%>" class="listingLink">
-            <img src="<%=listing.image.url%>" class="card-img-top" alt="loading" style="height: 20rem;">
-            <div class="card-body">
-              <p class="card-text"><b><%= listing.title%></b>
-            <br><b>Price:</b> &#8377;
-            <%= Number(listing.price).toLocaleString("en-IN")%>/night
-            <i class="taxInfo">&nbsp;+18% GST</i>
-            </div>
-        </a>
-          </div>
-      <% } %>
+                <img src="<%=listing.image.url%>" class="card-img-top" alt="loading" style="height: 20rem;">
+                <div class="card-body">
+                    <p class="card-text"><b><%= listing.title %></b><br>
+                    <b>Price:</b> ₹<%= Number(listing.price).toLocaleString("en-IN") %>/night
+                    <i class="taxInfo">&nbsp;+18% GST</i>
+                </div>
+            </a>
         </div>
-        <script>
-            let taxSwitch = document.getElementById("switchCheckDefault");
-            taxSwitch.addEventListener("click", ()=>{
-                let taxInfo = document.getElementsByClassName("taxInfo");
-                for(info of taxInfo) {
-                    if(info.style.display != "inline") {
-                    info.style.display = "inline";
-                    }
-                    else {
-                        info.style.display = "none";
-                    }
-                }
-            });
-        </script>
+    <% } %>
+</div>
+
+<script>
+    let taxSwitch = document.getElementById("switchCheckDefault");
+    taxSwitch.addEventListener("click", () => {
+        let taxInfo = document.getElementsByClassName("taxInfo");
+        for (let info of taxInfo) {
+            info.style.display = info.style.display !== "inline" ? "inline" : "none";
+        }
+    });
+</script>
