@@ -47,4 +47,4 @@ APIs: OpenStreetMap API, Unsplash Image API
 
 🔗 Live Demo
 
-👉 Smart Travel Planner
+👉 https://smart-travel-planner-cbp7.onrender.com/listings
